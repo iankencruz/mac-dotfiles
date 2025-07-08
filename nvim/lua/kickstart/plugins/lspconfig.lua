@@ -19,8 +19,8 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -30,6 +30,35 @@ return {
       'saghen/blink.cmp',
     },
     config = function()
+      -- Brief aside: **What is LSP?**
+      --
+      -- LSP is an initialism you've probably heard, but might not understand what it is.
+      --
+      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
+      -- and language tooling communicate in a standardized fashion.
+      --
+      -- In general, you have a "server" which is some tool built to understand a particular
+      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
+      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
+      -- processes that communicate with some "client" - in this case, Neovim!
+      --
+      -- LSP provides Neovim with features like:
+      --  - Go to definition
+      --  - Find references
+      --  - Autocompletion
+      --  - Symbol Search
+      --  - and more!
+      --
+      -- Thus, Language Servers are external tools that must be installed separately from
+      -- Neovim. This is where `mason` and related plugins come into play.
+      --
+      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
+      -- and elegantly composed help section, `:help lsp-vs-treesitter`
+
+      --  This function gets run when an LSP attaches to a particular buffer.
+      --    That is to say, every time a new file is opened that is associated with
+      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
+      --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -181,10 +210,9 @@ return {
       local servers = {
         -- clangd = {},
         gopls = {
-          filetypes = { 'go', 'gomod', 'gowork', 'tmpl' },
           settings = {
             gopls = {
-              gofumpt = false,
+              gofumpt = true,
               codelenses = {
                 gc_details = false,
                 generate = true,
@@ -205,7 +233,6 @@ return {
                 rangeVariableTypes = true,
               },
               analyses = {
-                fieldalignment = true,
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
@@ -215,44 +242,10 @@ return {
               completeUnimported = true,
               staticcheck = true,
               directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
-              semanticTokens = false,
+              semanticTokens = true,
             },
           },
         },
-
-        -- htmx LSP
-        htmx = {
-          filetypes = { 'templ', 'tmpl', 'astro', 'html' },
-        },
-
-        emmet_language_server = {
-          filetypes = { 'templ', 'html', 'tmpl', 'astro', 'typescript', 'react', 'ss' },
-        },
-
-        html = {
-          cmd = { 'vscode-html-language-server', '--stdio' },
-          filetypes = { 'html', 'ss', 'js' },
-          single_file_support = true,
-          init_options = {
-            provideFormatter = true,
-            embeddedLanguages = { css = true, javascript = true },
-            configurationSection = { 'html', 'css', 'javascript', 'templ', 'tmpl' },
-          },
-        },
-
-        -- tailwindcss LSP
-        tailwindcss = {
-          -- exclude a filetype from the default_config
-          filetypes_exclude = { 'markdown' },
-          -- add additional filetypes to the default_config
-          filetypes_include = {},
-          -- to fully override the default_config, change the below
-          -- filetypes = {}
-          --         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-          filetypes = { 'templ', 'astro', 'javascript', 'tmpl', 'html', 'typescript', 'react' },
-          init_options = { userLanguages = { templ = 'html' } },
-        },
-
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -262,7 +255,14 @@ return {
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
-        --
+
+        svelte = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = vim.fn.has 'nvim-0.10' == 0 and { dynamicRegistration = true },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = { ... },
@@ -300,7 +300,7 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = { 'goimports', 'gofumpt' }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
           function(server_name)
