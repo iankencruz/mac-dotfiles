@@ -256,12 +256,52 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
 
+        -- Add Svelte Language Server configuration
         svelte = {
-          capabilities = {
-            workspace = {
-              didChangeWatchedFiles = vim.fn.has 'nvim-0.10' == 0 and { dynamicRegistration = true },
+          filetypes = { 'svelte' }, -- Svelte 5 uses .svelte files
+          -- You can add specific settings for svelte-language-server here if needed.
+          -- For example, to enable the TypeScript plugin within Svelte files:
+          settings = {
+            svelte = {
+              plugin = {
+                typescript = {
+                  -- This requires typescript-language-server and @vue/language-server to be available
+                  -- in your project's node_modules or globally.
+                  -- You might need to install 'typescript-language-server' via Mason too if not already.
+                  -- For Svelte 5, ensure your language server supports the new syntax.
+                  -- Often, it's about making sure your svelte-language-server is up-to-date.
+                },
+              },
             },
           },
+        },
+
+        emmet_language_server = {
+          filetypes = { 'templ', 'html', 'tmpl', 'astro', 'typescript', 'react', 'svelte' },
+        },
+
+        html = {
+          cmd = { 'vscode-html-language-server', '--stdio' },
+          filetypes = { 'html', 'ss', 'js', 'svelte' },
+          single_file_support = true,
+          init_options = {
+            provideFormatter = true,
+            embeddedLanguages = { css = true, javascript = true },
+            configurationSection = { 'html', 'css', 'javascript', 'templ', 'tmpl', 'svelte' },
+          },
+        },
+
+        -- tailwindcss LSP
+        tailwindcss = {
+          -- exclude a filetype from the default_config
+          filetypes_exclude = { 'markdown' },
+          -- add additional filetypes to the default_config
+          filetypes_include = {},
+          -- to fully override the default_config, change the below
+          -- filetypes = {}
+          --         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+          filetypes = { 'templ', 'astro', 'javascript', 'tmpl', 'html', 'typescript', 'react', 'svelte' },
+          init_options = { userLanguages = { templ = 'html' } },
         },
 
         lua_ls = {
@@ -300,7 +340,13 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'goimports' }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {
+          'html',
+          'cssls',
+          'tailwindcss',
+          'svelte',
+          'lua_ls',
+        }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
           function(server_name)

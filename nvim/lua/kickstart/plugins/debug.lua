@@ -23,46 +23,49 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+
+    -- json5
+    'Joakker/lua-json5', -- Make sure this line exists
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
-      '<F5>',
+      '<leader>dd',
       function()
         require('dap').continue()
       end,
       desc = 'Debug: Start/Continue',
     },
     {
-      '<F1>',
+      '<Right>',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F2>',
+      '<Down>',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F3>',
+      '<Left>',
       function()
         require('dap').step_out()
       end,
       desc = 'Debug: Step Out',
     },
     {
-      '<leader>b',
+      '<leader>db',
       function()
         require('dap').toggle_breakpoint()
       end,
       desc = 'Debug: Toggle Breakpoint',
     },
     {
-      '<leader>B',
+      '<leader>dB',
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
@@ -70,7 +73,7 @@ return {
     },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
-      '<F7>',
+      '<leader>du',
       function()
         require('dapui').toggle()
       end,
@@ -120,21 +123,41 @@ return {
       },
     }
 
-    -- Change breakpoint icons
-    -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
-    -- vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
-    -- local breakpoint_icons = vim.g.have_nerd_font
-    --     and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-    --   or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
-    -- for type, icon in pairs(breakpoint_icons) do
-    --   local tp = 'Dap' .. type
-    --   local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
-    --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
-    -- end
+    -- Load launch.json configurations from .vscode/launch.json
+    -- This will look for launch.json in the current working directory
+    require('dap.ext.vscode').load_launchjs(nil, {
+      go = { 'go', 'golang' },
+    })
+
+    vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = '#e51400' })
+    vim.api.nvim_set_hl(0, 'DapStopped', { fg = '#ffcc00' })
+    vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = '◉', texthl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = '○', texthl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapStopped', { text = '▶', texthl = 'DapStopped', numhl = 'DapStopped' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    -- Install golang specific config
+    require('dap-go').setup {
+      delve = {
+        -- On Windows delve must be run attached or it crashes.
+        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+        detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    -- Enable verbose logging for debugging
+    vim.fn.setenv('NVIM_DAP_LOG_LEVEL', 'DEBUG')
+
+    -- Add error handling and logging
+    dap.listeners.after.event_output['dap_log'] = function(session, body)
+      if body.category == 'stderr' then
+        print('DAP Error: ' .. body.output)
+      end
+    end
 
     -- Install golang specific config
     require('dap-go').setup {
