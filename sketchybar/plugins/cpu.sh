@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 CORE_COUNT=$(sysctl -n machdep.cpu.thread_count)

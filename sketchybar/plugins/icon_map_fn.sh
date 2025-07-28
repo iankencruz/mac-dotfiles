@@ -1,5 +1,6 @@
 #!/bin/bash
 
+### START-OF-ICON-MAP
 function icon_map() {
   case "$1" in
   "Keynote" | "Keynote 讲演")
@@ -9,13 +10,16 @@ function icon_map() {
     icon_result=":figma:"
     ;;
   "Dia")
-    icon_result=":google_chrome:"
+    icon_result=":dia:"
     ;;
   "Ghostty")
     icon_result=":ghostty:"
     ;;
   "Beeper")
     icon_result=":messages:"
+    ;;
+  "Windows App")
+    icon_result=":windows_app:"
     ;;
   "VMware Fusion")
     icon_result=":vmware_fusion:"
