@@ -345,8 +345,8 @@ function icon_map() {
   "Skype")
     icon_result=":skype:"
     ;;
-  "Spark Desktop")
-    icon_result=":spark:"
+  "Spark")
+    icon_result=":mail:"
     ;;
   "Docker" | "Docker Desktop")
     icon_result=":docker:"
