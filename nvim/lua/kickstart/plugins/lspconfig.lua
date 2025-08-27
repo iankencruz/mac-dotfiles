@@ -256,6 +256,11 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
 
+        -- Add Astro LSP
+        astro = {
+          filetypes = { 'astro' },
+        },
+
         -- Add Svelte Language Server configuration
         svelte = {
           filetypes = { 'svelte' }, -- Svelte 5 uses .svelte files

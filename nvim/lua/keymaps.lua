@@ -39,8 +39,11 @@ vim.keymap.set('n', '<leader>w', '<C-w>', { noremap = true })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
---
---
+
+vim.keymap.set('n', '<leader>ds', function()
+  require('telescope.builtin').lsp_document_symbols()
+end, { desc = '[D]ocument [S]ymbols (LSP)' }) --
+
 -- -- better indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')

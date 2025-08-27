@@ -9,6 +9,9 @@ function icon_map() {
   "Figma")
     icon_result=":figma:"
     ;;
+  "TablePlus")
+    icon_result=":tableplus:"
+    ;; 
   "Dia")
     icon_result=":dia:"
     ;;

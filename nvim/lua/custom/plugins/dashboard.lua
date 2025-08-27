@@ -9,8 +9,12 @@ return {
       theme = 'doom',
       config = {
         center = {
-          { action = 'Lazy update', desc = ' Update Plugins', icon = '󰚰 ', key = 'u' },
-          { action = 'Telescope find_files', desc = ' Find file', icon = ' ', key = 'f' },
+          { icon = ' ', key = 'f', desc = 'Find File', action = 'Telescope find_files' },
+          { icon = ' ', key = 'r', desc = 'Recent Files', action = 'Telescope oldfiles' },
+          { icon = ' ', key = 'g', desc = 'Find Text', action = 'Telescope live_grep' },
+          { icon = ' ', key = 'u', desc = 'Update Plugings', action = 'Lazy update' },
+          { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+          { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
         },
         header = {
           '',
