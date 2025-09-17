@@ -1,0 +1,29 @@
+# Tomorrow Night Burns Enhanced - Dark Energy Theme
+# Based on your custom color palette with more orange tones
+# Standard colors (0-7) - Normal intensity
+palette = 0=#2a2a2a
+palette = 1=#ff4422
+palette = 2=#ffaa55
+palette = 3=#ff4422
+palette = 4=#d1d5db
+palette = 5=#ee3322
+palette = 6=#ff4422
+palette = 7=#cccccc
+# Bright colors (8-15) - High intensity variants
+palette = 8=#444444
+palette = 9=#ff4422
+palette = 10=#ffcc66
+palette = 11=#ff4422
+palette = 12=#aaaaaa
+palette = 13=#ff5544
+palette = 14=#ffee88
+palette = 15=#ffffff
+# Terminal background and foreground
+background = #000000
+foreground = #e0e0e0
+# Cursor styling
+cursor-color = #ff4422
+cursor-text = #000000
+# Selection colors
+selection-background = #444444
+selection-foreground = #ff4422
