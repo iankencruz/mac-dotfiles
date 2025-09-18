@@ -1,81 +1,108 @@
-console_title_template = '{{ .Shell }} in {{ .Folder }}'
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
 version = 3
 final_space = true
 
-[secondary_prompt]
-  template = '❯❯ '
-  foreground = 'magenta'
-  background = 'transparent'
+[palette]
+os = "#e0e0e0"
+closer = "p:os"
+orange = "#FFB347"
+lavender = "#FFCC99"
+blue = "#FF6B35"
 
-[transient_prompt]
-  template = '❯ '
-  background = 'transparent'
-  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+# Start of prompt arrow
+[[blocks]]
+alignment = "left"
+type = "prompt"
+
+# os
+[[blocks.segments]]
+foreground = "p:os"
+style = "plain"
+template = "{{.Icon}}  "
+type = "os"
+
+# user & host
+[[blocks.segments]]
+foreground = "p:blue"
+style = "plain"
+template = "{{ .UserName }}@{{ .HostName }} |"
+type = "session"
+
+# Path
+[[blocks.segments]]
+foreground = "p:orange"
+style = "plain"
+template = "{{ .Path }} | "
+type = "path"
+
+
+# Home Folder
+[blocks.segments.properties]
+folder_icon = "..\ue5fe.."
+home_icon = "~"
+style = "full"
+
+# Git
+[[blocks.segments]]
+foreground = "p:lavender"
+style = "plain"
+template = "{{ .HEAD }} | "
+type = "git"
+
+
+
+
+
+
+
+[blocks.segments.properties]
+branch_icon = "\ue725 "
+cherry_pick_icon = "\ue29b "
+commit_icon = "\uf417 "
+fetch_status = false
+fetch_upstream_icon = false
+merge_icon = "\ue727 "
+no_commits_icon = "\uf0c3 "
+rebase_icon = "\ue728 "
+revert_icon = "\uf0e2 "
+tag_icon = "\uf412 "
+
+# Bun
+[[blocks.segments]]
+type = "bun"
+style = "plain"
+foreground = "p:orange"
+template = " {{ .Full }} "
+
+# execution || right
+[[blocks]]
+alignment = "right"
+type = "prompt"
+
+[[blocks.segments]]
+foreground = "#ffffff"
+style = "plain"
+template = " {{ .FormattedMs }} "
+type = "executiontime"
+
+[blocks.segments.properties]
+threshold = 500
+style = "austin"
+always_enabled = true
+
+
+
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
-  newline = true
+alignment = "left"
+type = "prompt"
+newline = true
 
-  [[blocks.segments]]
-    template = '{{ .Path }}'
-    foreground = 'blue'
-    background = 'transparent'
-    type = 'path'
-    style = 'plain'
-
-    [blocks.segments.properties]
-      folder_icon = "..\ue5fe.."
-      cache_duration = 'none'
-      style = 'full'
-  template = "{{ .Path }} "
+[[blocks.segments]]
+style = "plain"
+foreground = "p:closer"
+template = "\uf105 "
+type = "text"
 
 
-  [[blocks.segments]]
-	type = "git"
-	style = "plain"
-	foreground = "p:lavender"
 
-    [blocks.segments.properties]
-	branch_icon = "\ue725 "
-	cherry_pick_icon = "\ue29b "
-	commit_icon = "\uf417 "
-	fetch_status = false
-	fetch_upstream_icon = false
-	merge_icon = "\ue727 "
-	no_commits_icon = "\uf0c3 "
-	rebase_icon = "\ue728 "
-	revert_icon = "\uf0e2 "
-	tag_icon = "\uf412 "
-  template = "{{ .HEAD }} "
-
-
-[[blocks]]
-  type = 'rprompt'
-  overflow = 'hidden'
-
-  [[blocks.segments]]
-    template = '{{ .FormattedMs }}'
-    foreground = 'yellow'
-    background = 'transparent'
-    type = 'executiontime'
-    style = 'plain'
-
-    [blocks.segments.properties]
-      cache_duration = 'none'
-      threshold = 5000
-
-[[blocks]]
-  type = 'prompt'
-  alignment = 'left'
-  newline = true
-
-  [[blocks.segments]]
-    template = '❯'
-    background = 'transparent'
-    type = 'text'
-    style = 'plain'
-    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
-
-    [blocks.segments.properties]
-      cache_duration = 'none'
