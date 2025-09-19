@@ -197,6 +197,7 @@ alt-0 = 'workspace 0'
 
 # Application Specific Workspace
 alt-p = 'workspace P'
+alt-m = 'workspace M'
 
 
 alt-comma = 'workspace prev'
@@ -222,6 +223,7 @@ alt-ctrl-0 = 'move-node-to-workspace 0'
 
 # Application Specific Workspace
 alt-ctrl-p = 'move-node-to-workspace P'
+alt-ctrl-m = 'move-node-to-workspace M'
 
 
 
@@ -239,6 +241,7 @@ alt-shift-0 = 'move-node-to-workspace 0 --focus-follows-window'
 
 # Application Specific Workspace
 alt-shift-p = 'move-node-to-workspace P --focus-follows-window'
+alt-shift-m = 'move-node-to-workspace M --focus-follows-window'
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -282,6 +285,7 @@ alt-shift-l = ['join-with right', 'mode main']
 
 
 P = ['main', 'dell']  # Remote desktop
+M = ['main' ]  # Remote desktop
 
 
 # ### [[On Detect]] ###
@@ -349,6 +353,6 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.rdc.macos'
-run = 'move-node-to-workspace P'
+run = 'move-node-to-workspace M'
 
 
