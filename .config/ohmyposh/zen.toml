@@ -8,6 +8,7 @@ closer = "p:os"
 orange = "#FFB347"
 lavender = "#FFCC99"
 blue = "#FF6B35"
+git = "#EA9DFF"
 
 # Start of prompt arrow
 [[blocks]]
@@ -44,7 +45,7 @@ style = "full"
 
 # Git
 [[blocks.segments]]
-foreground = "p:lavender"
+foreground = "p:git"
 style = "plain"
 template = "{{ .HEAD }} | "
 type = "git"
@@ -74,11 +75,35 @@ style = "plain"
 foreground = "p:orange"
 template = " {{ .Full }} "
 
-# execution || right
+# Go
+[[blocks.segments]]
+type = "go"
+style = "plain"
+foreground = "#7FD5EA"
+template = " {{ .Full }} "
+
+
+[[blocks.segments]]
+type = "python"
+style = "plain"
+foreground = "#100e23"
+template = "  {{ .Full }} "
+
+#  right prompt
 [[blocks]]
 alignment = "right"
 type = "prompt"
 
+# Time
+# [[blocks.segments]]
+# type = "time"
+# style = "plain"
+# foreground = "#007ACC"
+#
+# [blocks.segments.properties]
+# time_format = "15:04:05"
+
+# execution ||
 [[blocks.segments]]
 foreground = "#ffffff"
 style = "plain"
@@ -89,6 +114,14 @@ type = "executiontime"
 threshold = 500
 style = "austin"
 always_enabled = true
+
+
+# Shell
+# [[blocks.segments]]
+# type = "shell"
+# style = "plain"
+# foreground = "#ffffff"
+#
 
 
 
