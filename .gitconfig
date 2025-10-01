@@ -1,0 +1,15 @@
+[user]
+	email = iankencruz@gmail.com
+	name = iankendoit
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra
+[alias]
+  ga = "!f() { git_stage_files; }; f"
+
+
+[includeIf "gitdir:~/Workspace/ynot/"]
+    path = ~/.gitconfig-ynot
