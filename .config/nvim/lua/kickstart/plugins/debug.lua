@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python', -- Add Python debugger support
 
     -- json5
     'Joakker/lua-json5', -- Make sure this line exists
@@ -79,6 +80,32 @@ return {
       end,
       desc = 'Debug: See last session result.',
     },
+    -- Python-specific keymaps
+    {
+      '<leader>dpt',
+      function()
+        require('dap-python').test_method()
+      end,
+      desc = 'Debug: Test Method',
+      ft = 'python',
+    },
+    {
+      '<leader>dpc',
+      function()
+        require('dap-python').test_class()
+      end,
+      desc = 'Debug: Test Class',
+      ft = 'python',
+    },
+    {
+      '<leader>dps',
+      function()
+        require('dap-python').debug_selection()
+      end,
+      desc = 'Debug: Debug Selection',
+      ft = 'python',
+      mode = 'v',
+    },
   },
   config = function()
     local dap = require 'dap'
@@ -98,6 +125,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'debugpy', -- Add debugpy for Python debugging
       },
     }
 
@@ -127,6 +155,7 @@ return {
     -- This will look for launch.json in the current working directory
     require('dap.ext.vscode').load_launchjs(nil, {
       go = { 'go', 'golang' },
+      python = { 'python', 'py' }, -- Add Python support for launch.json
     })
 
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = '#e51400' })
@@ -149,6 +178,31 @@ return {
       },
     }
 
+    -- Configure Python debugging with debugpy
+    require('dap-python').setup '~/.virtualenvs/debugpy/bin/python'
+    -- Alternative setup options:
+    -- require('dap-python').setup('python3') -- Use system python3
+    -- require('dap-python').setup('/usr/bin/python3') -- Use specific python path
+    -- require('dap-python').setup(vim.fn.exepath('python3')) -- Use python3 in PATH
+
+    -- Custom Python DAP configuration (optional - nvim-dap-python provides good defaults)
+    dap.configurations.python = dap.configurations.python or {}
+    table.insert(dap.configurations.python, {
+      type = 'python',
+      request = 'launch',
+      name = 'Launch file with arguments',
+      program = '${file}',
+      args = function()
+        local args_string = vim.fn.input 'Arguments: '
+        return vim.split(args_string, ' ')
+      end,
+      console = 'integratedTerminal',
+      cwd = '${workspaceFolder}',
+      env = {
+        PYTHONPATH = '${workspaceFolder}',
+      },
+    })
+
     -- Enable verbose logging for debugging
     vim.fn.setenv('NVIM_DAP_LOG_LEVEL', 'DEBUG')
 
@@ -158,14 +212,5 @@ return {
         print('DAP Error: ' .. body.output)
       end
     end
-
-    -- Install golang specific config
-    require('dap-go').setup {
-      delve = {
-        -- On Windows delve must be run attached or it crashes.
-        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
-      },
-    }
   end,
 }

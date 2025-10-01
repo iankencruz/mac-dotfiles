@@ -14,7 +14,7 @@ return {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -35,10 +35,17 @@ return {
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'biome', 'prettier' },
+        typescript = { 'biome', 'prettier' },
+        typescriptreact = { 'biome', 'prettier' },
         markdown = { 'prettier' },
         go = { 'gofmt', 'gofumpt', 'goimports' },
-        svelte = { 'prettier' },
+        svelte = { 'biome', 'prettier', stop_after_first = true },
+        yaml = { 'prettier' },
+        markdown = { 'vale', 'prettier' },
+        handlebars = { 'prettier' },
+        json = { 'fixjson', 'prettier' },
       },
     },
   },

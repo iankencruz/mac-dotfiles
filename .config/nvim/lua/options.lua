@@ -75,4 +75,17 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- [[ Configure, add & set filetypes ]]
+vim.filetype.add {
+  filename = {
+    -- Explicitly set .env and .env.local to dotenv filetype
+    ['.env'] = 'dotenv',
+    ['.env.local'] = 'dotenv',
+  },
+  pattern = {
+    -- Match filenames like ".env.example", ".env.development", etc.
+    ['%.env%.[%w_.-]+'] = 'dotenv',
+  },
+}
+
 -- vim: ts=2 sts=2 sw=2 et

@@ -281,6 +281,24 @@ return {
           },
         },
 
+        biome = {
+          filetypes = {
+            'astro',
+            'css',
+            'graphql',
+            'html',
+            'javascript',
+            'javascriptreact',
+            'json',
+            'jsonc',
+            'svelte',
+            'typescript',
+            'typescript.tsx',
+            'typescriptreact',
+            'vue',
+          },
+        },
+
         emmet_language_server = {
           filetypes = { 'templ', 'html', 'tmpl', 'astro', 'typescript', 'react', 'svelte' },
         },
@@ -305,7 +323,7 @@ return {
           -- to fully override the default_config, change the below
           -- filetypes = {}
           --         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-          filetypes = { 'templ', 'astro', 'javascript', 'tmpl', 'html', 'typescript', 'react', 'svelte' },
+          filetypes = { 'templ', 'astro', 'javascript', 'tmpl', 'html', 'typescript', 'react', 'svelte', 'jsx', 'tsx' },
           init_options = { userLanguages = { templ = 'html' } },
         },
 
