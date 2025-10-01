@@ -1,0 +1,9 @@
+[icon]
+prepend_files = [
+	# { name = ".env.example", text = "📁", fg = "#6c757d" },    # Gray for example/template
+	{ name = ".env.local", text = "", fg = "#28a745" },      # Green for local development
+	{ name = ".env.development", text = "", fg = "#007bff" }, # Blue for development
+	{ name = ".env.staging", text = "", fg = "#fd7e14" },    # Orange for staging
+	{ name = ".env.production", text = "", fg = "#dc3545" }, # Red for production
+	{ name = ".env", text = "", fg = "#ffc107" },            # Yellow/amber for base .env
+]

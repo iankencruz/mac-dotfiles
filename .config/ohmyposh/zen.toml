@@ -23,17 +23,17 @@ template = "{{.Icon}}  "
 type = "os"
 
 # user & host
-[[blocks.segments]]
-foreground = "p:blue"
-style = "plain"
-template = "{{ .UserName }}@{{ .HostName }} |"
-type = "session"
+# [[blocks.segments]]
+# foreground = "p:blue"
+# style = "plain"
+# template = "{{ .UserName }}@{{ .HostName }}"
+# type = "session"
 
 # Path
 [[blocks.segments]]
 foreground = "p:orange"
 style = "plain"
-template = "{{ .Path }} | "
+template = "{{ .Path }} "
 type = "path"
 
 
@@ -47,7 +47,7 @@ style = "full"
 [[blocks.segments]]
 foreground = "p:git"
 style = "plain"
-template = "{{ .HEAD }} | "
+template = " {{ .HEAD }}"
 type = "git"
 
 
@@ -73,14 +73,14 @@ tag_icon = "\uf412 "
 type = "bun"
 style = "plain"
 foreground = "p:orange"
-template = " {{ .Full }} "
+template = "  {{ .Full }} "
 
 # Go
 [[blocks.segments]]
 type = "go"
 style = "plain"
 foreground = "#7FD5EA"
-template = " {{ .Full }} "
+template = "  {{ .Full }} "
 
 
 [[blocks.segments]]
@@ -103,7 +103,7 @@ type = "prompt"
 # [blocks.segments.properties]
 # time_format = "15:04:05"
 
-# execution ||
+# execution 
 [[blocks.segments]]
 foreground = "#ffffff"
 style = "plain"
