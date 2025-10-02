@@ -140,9 +140,6 @@ batdiff() {
 
 
 
-
-
-
 # ==============================================================================
 # 3. SHELL Aliases
 # ==============================================================================
@@ -151,14 +148,13 @@ alias vim='nvim'          # Use neovim when you type 'vim'
 alias vi='nvim'           # Use neovim when you type 'vi'
 
 # Directory Listing Aliases (using eza)
-alias ls='eza -h --icons=always'
-alias ll='eza -alh --icons=always'
+alias ls='eza -alh --icons=always'
 alias la='eza -a --icons=always'
 
 # System Navigation/Management
 alias cd='z'
-# alias ..='cd ..'
-# alias ...='cd ../..'
+alias ..='cd ..'
+alias ...='cd ../..'
 alias up='cd ..'
 alias path='echo $PATH'
 alias reload='source ~/.zshrc' # Quick way to apply changes to this file

@@ -1,3 +1,6 @@
+[includeIf "gitdir:~/Workspace/ynot/"]
+  path = ~/.gitconfig-ynot
+
 [user]
 	email = iankencruz@gmail.com
 	name = iankendoit
@@ -5,11 +8,20 @@
 	rebase = true
 [fetch]
 	prune = true
-[diff]
-	colorMoved = zebra
-[alias]
-  ga = "!f() { git_stage_files; }; f"
 
 
-[includeIf "gitdir:~/Workspace/ynot/"]
-    path = ~/.gitconfig-ynot
+[pager]
+  delta
+[core]
+	pager = DELTA_FEATURES=+side-by-side delta
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+  navigate = true # use n and N to move between diff sections
+  line-numbers = true
+  dark = true # or light = true, or omit for auto-detection
+
+
+[merge]
+	conflictStyle = zdiff3
