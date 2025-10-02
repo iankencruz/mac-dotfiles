@@ -32,29 +32,29 @@ return {
           -- miscs = {}, -- Uncomment to turn off hard-coded styles
         },
         color_overrides = {
+
           all = {
             -- Override all flavours with TNB colors
-            -- Deep & Saturated Tones (High Priority/Keywords)
-            deep_red = '#c94632', -- Deep, rich red (main keywords)
-            muted_brick = '#e65e4e', -- Saturated brick-red (conditionals)
-            dark_coral = '#e28c61', -- Deeper muted red (constants)
+            text = '#e0e0e0', -- foreground
+            base = '#000000', -- background (pure black)
+            mantle = '#2a2a2a', -- palette 0 (dark gray)
+            crust = '#444444', -- palette 8 (medium gray)
 
-            -- Mid-Range Tones (Functions, Types, Built-ins)
-            bright_coral = '#f17e65', -- Brighter mid-tone coral (built-ins)
-            mid_tangerine = '#e98877', -- Brighter pastel red-orange (types)
-            soft_salmon = '#f59a8c', -- Lighter coral red/salmon (operators)
-
-            -- Light & Pastel Tones (Strings, Variables, Imports)
-            light_peach = '#f7b09b', -- True peachy-orange (functions)
-            pastel_orange = '#f9c2ae', -- Soft muted orange (numbers)
-            warm_cream = '#fbd4c3', -- Light rose-pink/pastel (variables)
-            golden_cream = '#fde5d3', -- Soft golden cream (strings)
-            very_light_cream = '#fcf0e4', -- Very light warm cream (imports)
-
-            -- Near-Neutral/Grayscale Tones (Subtle UI elements/Punctuation)
-            medium_rose = '#db7979', -- Medium rose-red (Original sapphire equivalent)
-            light_rose = '#d9a8a8', -- Light muted pink-red (Original flamingo equivalent)
-            pure_white = '#ffffff', -- White (Original rosewater equivalent)
+            -- Pastel warm colors with more red variety
+            red = '#d47a7a', -- soft coral-red (main keywords)
+            maroon = '#c66666', -- true pastel red (conditionals)
+            peach = '#e6a085', -- peachy-orange (functions)
+            yellow = '#f2d49b', -- soft golden cream (strings)
+            green = '#cc7766', -- brighter pastel red-orange (types)
+            teal = '#cc8888', -- light rose-red (operators)
+            sky = '#f0d6a6', -- very light warm cream (imports)
+            sapphire = '#aaaaaa', -- palette 12 (medium-light gray)
+            blue = '#d99999', -- soft pink-red (built-ins)
+            lavender = '#e6b3b3', -- light rose-pink (variables)
+            mauve = '#a66666', -- deeper muted red (constants)
+            pink = '#e8a6a6', -- warm pastel pink (numbers)
+            flamingo = '#cccccc', -- palette 7 (light gray)
+            rosewater = '#ffffff', -- palette 15 (white)
 
             -- Surface colors for UI elements
             surface0 = '#333333', -- slightly lighter than base
@@ -71,51 +71,47 @@ return {
         },
         custom_highlights = function(colors)
           return {
-            -- Deep & Saturated Tones for Keywords and Conditionals
-            ['@keyword'] = { fg = colors.deep_red, style = { 'italic' } },
-            ['@keyword.conditional'] = { fg = colors.muted_brick, style = { 'italic' } },
-            ['@keyword.repeat'] = { fg = colors.muted_brick, style = { 'italic' } },
-            ['@keyword.function'] = { fg = colors.deep_red, style = { 'italic' } },
-            ['@keyword.operator'] = { fg = colors.soft_salmon }, -- Mid-Range for operators
-            ['@keyword.import'] = { fg = colors.very_light_cream }, -- Very Light for imports
+            -- Go/Programming syntax with orange variety
+            ['@keyword'] = { fg = colors.red, style = { 'italic' } }, -- #ff4422 main keywords (func, type, var)
+            ['@keyword.conditional'] = { fg = colors.maroon, style = { 'italic' } }, -- #ee3322 if/else
+            ['@keyword.repeat'] = { fg = colors.maroon, style = { 'italic' } }, -- #ee3322 for/while loops
+            ['@keyword.function'] = { fg = colors.red, style = { 'italic' } }, -- #ff4422 func keyword
+            ['@keyword.operator'] = { fg = colors.teal }, -- #ff5533 operators
+            ['@keyword.import'] = { fg = colors.blue }, -- #ff7744 import/package
 
-            -- Mid-Range Tones for Functions and Types
-            ['@function'] = { fg = colors.light_peach },
-            ['@function.builtin'] = { fg = colors.bright_coral },
-            ['@function.call'] = { fg = colors.light_peach },
+            ['@function'] = { fg = colors.peach }, -- #ff6633 function names
+            ['@function.builtin'] = { fg = colors.blue }, -- #ff7744 built-in functions
+            ['@function.call'] = { fg = colors.peach }, -- #ff6633 function calls
 
-            ['@type'] = { fg = colors.mid_tangerine },
-            ['@type.builtin'] = { fg = colors.mid_tangerine },
-            ['@type.definition'] = { fg = colors.mid_tangerine },
+            ['@type'] = { fg = colors.green }, -- #ff8844 type names
+            ['@type.builtin'] = { fg = colors.green }, -- #ff8844 built-in types
+            ['@type.definition'] = { fg = colors.green }, -- #ff8844 type definitions
 
-            -- Light & Pastel Tones for Variables, Strings, and Numbers
-            ['@variable'] = { fg = colors.warm_cream },
-            ['@variable.builtin'] = { fg = colors.warm_cream },
-            ['@variable.parameter'] = { fg = colors.text }, -- Assuming 'text' is a defined foreground color
+            ['@variable'] = { fg = colors.lavender }, -- #ff5544 variables
+            ['@variable.builtin'] = { fg = colors.lavender }, -- #ff5544 built-in vars
+            ['@variable.parameter'] = { fg = colors.text }, -- #e0e0e0 parameters
 
-            ['@constant'] = { fg = colors.dark_coral },
-            ['@constant.builtin'] = { fg = colors.dark_coral },
-            ['@string'] = { fg = colors.golden_cream },
-            ['@number'] = { fg = colors.pastel_orange },
-            ['@boolean'] = { fg = colors.dark_coral },
+            ['@constant'] = { fg = colors.mauve }, -- #ff9955 constants
+            ['@constant.builtin'] = { fg = colors.mauve }, -- #ff9955 built-in constants
+            ['@string'] = { fg = colors.yellow }, -- #ffcc66 strings
+            ['@number'] = { fg = colors.mauve }, -- #ff9955 numbers
+            ['@boolean'] = { fg = colors.mauve }, -- #ff9955 true/false
 
-            -- Operators and Punctuation
-            ['@operator'] = { fg = colors.soft_salmon },
-            ['@punctuation.delimiter'] = { fg = colors.text },
-            ['@punctuation.bracket'] = { fg = colors.text },
+            ['@operator'] = { fg = colors.teal }, -- #ff5533 operators
+            ['@punctuation.delimiter'] = { fg = colors.text }, -- #e0e0e0 commas, semicolons
+            ['@punctuation.bracket'] = { fg = colors.text }, -- #e0e0e0 brackets, parens
 
-            -- Comments
-            ['@comment'] = { fg = colors.overlay1, style = { 'italic' } },
+            ['@comment'] = { fg = colors.overlay1, style = { 'italic' } }, -- #aaaaaa comments
 
             -- Telescope integration
-            TelescopeBorder = { fg = colors.deep_red },
-            TelescopePromptBorder = { fg = colors.deep_red },
-            TelescopeSelection = { fg = colors.deep_red, bg = colors.surface0 },
+            TelescopeBorder = { fg = colors.red },
+            TelescopePromptBorder = { fg = colors.red },
+            TelescopeSelection = { fg = colors.red, bg = colors.surface0 },
 
             -- LSP and diagnostics
-            DiagnosticError = { fg = colors.deep_red },
-            DiagnosticWarn = { fg = colors.golden_cream },
-            DiagnosticInfo = { fg = colors.bright_coral },
+            DiagnosticError = { fg = colors.red },
+            DiagnosticWarn = { fg = colors.yellow },
+            DiagnosticInfo = { fg = colors.peach },
             DiagnosticHint = { fg = colors.overlay1 },
           }
         end,
