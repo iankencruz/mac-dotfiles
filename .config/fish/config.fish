@@ -27,6 +27,10 @@ end
 
 # --- FZF Keybindings (History Search: Ctrl+R) ---
 if type -q fzf
+
+    # Set up fzf key bindings
+    fzf --fish | source
+
     # The history search keybinding is defined as a Fish function
     function fzf_history_widget
         # The history command output is filtered by fzf.

@@ -75,6 +75,14 @@ style = "plain"
 foreground = "p:orange"
 template = "  {{ .Full }} "
 
+
+# node
+[[blocks.segments]]
+type = "node"
+style = "plain"
+foreground = "p:orange"
+template = "  {{ .Full }} "
+
 # Go
 [[blocks.segments]]
 type = "go"

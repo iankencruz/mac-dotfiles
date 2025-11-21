@@ -36,6 +36,9 @@ fi
 # --- FZF configurations
 if command -v fzf &> /dev/null; then
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
     # =======================================================
     # 1. History Search Widget (Ctrl+R)
     # =======================================================
@@ -143,6 +146,7 @@ batdiff() {
 # ==============================================================================
 # 3. SHELL Aliases
 # ==============================================================================
+
 # Editor Aliases
 alias vim='nvim'          # Use neovim when you type 'vim'
 alias vi='nvim'           # Use neovim when you type 'vi'
@@ -164,3 +168,37 @@ alias cat='bat'
 
 # LazyGit Git manager
 alias lg='lazygit'
+
+
+# Python 
+alias python='python3'
+
+
+# ==============================================================================
+# 3. Exports
+# ==============================================================================
+
+export PATH="$(go env GOPATH)/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+
+
+
+# ==============================================================================
+# 4. Zsh Plugins
+# ==============================================================================
+
+# Initialize zsh-autosuggestions (must be loaded after compinit and before custom widgets)
+# IMPORTANT: Change the path below if your installation location is different!
+if [ -f "/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# Common path for Oh My Zsh installations
+elif [ -f "$ZSH/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "$ZSH/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+else
+    # Fallback/Warning (optional)
+    # echo "WARNING: zsh-autosuggestions not found in common paths."
+    :
+fi
+
+plugins=(zsh-autosuggestions)

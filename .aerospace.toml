@@ -300,21 +300,15 @@ M = ['main' ]  # Remote desktop
 if.app-id = 'company.thebrowser.dia'
 run = "move-node-to-workspace 2"
 
-# HTTPIE
+# BRUNO
 [[on-window-detected]]
-if.app-id = 'io.httpie.desktop'
-run = "move-node-to-workspace 6"
+if.app-id = 'com.usebruno.app'
+run = "move-node-to-workspace 5"
 
 # TablePlus
 [[on-window-detected]]
 if.app-id = 'com.tinyapp.TablePlus'
-run = "move-node-to-workspace 6"
-
-
-# Beekeeper Studio
-[[on-window-detected]]
-if.app-id = 'io.beekeeperstudio.desktop'
-run = "move-node-to-workspace 6"
+run = "move-node-to-workspace 5"
 
 
 
